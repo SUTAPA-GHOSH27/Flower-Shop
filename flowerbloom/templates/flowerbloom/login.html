@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+</head>
+<body>
+
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>Message:</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    {% endfor %}
+
+    <h3>Log In to your account!</h3>
+    <div class="container">
+        <div class="col-6">
+            <h2>Signin</h2>
+            <form name="frm" method="post">
+                {% csrf_token %}
+                {% for frm in form %}
+                <div class="form-group">
+                    {{frm.label_tag}} <span class="text-danger">{{frm.errors|striptags}}</span>
+                    {{frm}}
+                  </div>
+                {% endfor %}
+                <input type="submit" value="Login" class="btn btn-primary">
+            </form>
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                <p>{{error}}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
