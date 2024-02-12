@@ -55,36 +55,35 @@
         <section class="section__content section__category">
             <div class="container">
                 <div class="row">
-                    {% if birthday_products %}
-                        {% for item in birthday_products %}
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <a href="{% url 'product' item.p_id %}" class="text-decoration-none">
-                                <div class="card h-100">
-                                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ item.name }}</h5>
-                                        <p class="card-text text-justify">{{ item.description }}</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <p class="text-muted">Price &#8377;{{ item.price }}</p>
-                                        <a href="{% url 'add_to_cart' item.p_id %}"><button class="fs__button custom-btn btn w-max mt-2" type="button">Add to Cart</button></a>
-                                    <a href="{% url 'add_to_wishlist' item.p_id %}"><button class="fs__button custom-btn btn w-max mt-2" type="button">Wishlist
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                    {% if plant_products %}
+                        {% for item in plant_products %}
+                        <a href="{% url 'product' item.p_id %}">
+                            <div class="card col-4">
+                                <img src="{{ item.image.url }}" class="card-img-top">
+                                <div class="card-header">
+                                    <h4 class="card-title">{{ item.name }}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text text-justify">{{ item.description }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    Price &#8377;{{ item.price }}
+                                    <a href="{% url 'add_to_cart' item.p_id %}"><button type="button">Add to Cart</button></a>
+                                    <a href="{% url 'add_to_wishlist' item.p_id %}"><button type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                         </svg>
-                                    </button></a>
-                                    </div>
+                                        </button></a>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                         {% endfor %}
                     {% else %}
-                        <div class="col">
-                            <h3 class="text-center text-danger">Sorry, no products found</h3>
-                        </div>
+                        <h3 class="text-center text-danger">Sorry No products found</h3>
                     {% endif %}
                 </div>
             </div>
+            <!-- container .//  -->
         </section>
         <!-- section__content.// -->
         

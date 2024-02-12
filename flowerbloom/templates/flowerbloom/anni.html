@@ -40,23 +40,14 @@
     {% include './header.html' %}
     <!-- section__header.// -->
 
-    <section class="section__pagetop bg">
-        <div class="container">
-            <h2 class="title-page">{{ category.cat_name }}</h2>
-            <nav>
-                <ol class="breadcrumb text-white">
-                    <li class="breadcrumb-item"><a href="{% url 'home-page' %}">Home Page</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ category.cat_name }}</li>
-                </ol>
-            </nav>
-        </div>
+    
         <!-- container //  -->
         
         <section class="section__content section__category">
             <div class="container">
                 <div class="row">
-                    {% if birthday_products %}
-                        {% for item in birthday_products %}
+                    {% if anniversary %}
+                        {% for item in anniversary %}
                         <div class="col-lg-4 col-md-6 mb-4">
                             <a href="{% url 'product' item.p_id %}" class="text-decoration-none">
                                 <div class="card h-100">
