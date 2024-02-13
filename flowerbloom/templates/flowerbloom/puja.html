@@ -36,8 +36,8 @@
     </head>
 
 <body>
-
     {% include './header.html' %}
+   
     <!-- section__header.// -->
 
     <section class="section__pagetop bg">
@@ -53,11 +53,13 @@
         <!-- container //  -->
         
        `<section class="section__content section__category">
+        
         <div class="container">
+            
             <div class="row">
                 {% if puja_products %}
                     {% for item in puja_products %}
-                    <div class="col-lg-4 col-md-6 mb-4">
+                     <div class="col-lg-4 col-md-6 mb-4">
                         <a href="{% url 'product' item.p_id %}" class="text-decoration-none">
                             <div class="card h-100">
                                 <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">

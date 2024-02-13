@@ -23,6 +23,9 @@ from .models import WishlistItem,Order
 import razorpay
 from django.conf import settings
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
 
 
 def signup(request):
@@ -105,7 +108,7 @@ def category(request):
         birthday_products = Product.objects.filter(category__cat_name='Birthday Flowers')
         return render(request, 'flowerbloom/category.html', {'birthday_products': birthday_products})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
 
 def wishlist(request):
     return render(request, 'flowerbloom/wishlist.html')
@@ -124,49 +127,49 @@ def puja(request):
         puja_products = Product.objects.filter(category__cat_name='Puja Flowers')
         return render(request, 'flowerbloom/puja.html', {'puja_products': puja_products})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
 
 def valentine(request):
     if request.user.is_authenticated:
         valentine_products = Product.objects.filter(category__cat_name='Valentine day Flowers')
         return render(request, 'flowerbloom/valentine.html', {'valentine_products': valentine_products})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
     
 def plant(request):
     if request.user.is_authenticated:
         plant_products = Product.objects.filter(category__cat_name='Plants and Greenery')
         return render(request, 'flowerbloom/plant.html', {'plant_products': plant_products})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
     
 def cactus(request):
     if request.user.is_authenticated:
         cactus = Product.objects.filter(category__cat_name='Cactus Plants')
         return render(request, 'flowerbloom/cactus.html', {'cactus': cactus})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
     
 def marriage(request):
     if request.user.is_authenticated:
         marriage = Product.objects.filter(category__cat_name='Marriage Flowers')
         return render(request, 'flowerbloom/marraige.html', {'marriage': marriage})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
     
 def anniversary(request):
     if request.user.is_authenticated:
         anniversary = Product.objects.filter(category__cat_name='Anniversary Flowers')
         return render(request, 'flowerbloom/anni.html', {'anniversary': anniversary})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
     
 def gift(request):
     if request.user.is_authenticated:
         gift = Product.objects.all().select_related('category')
         return render(request, 'flowerbloom/gift.html', {'gift': gift})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
 
 def product(request, p_id):
     # Retrieve the product from the database based on the product ID
@@ -187,14 +190,14 @@ def all_products(request):
         filenames = os.listdir(products_directory)
         return render(request, 'flowerbloom/home.html', {'filenames': filenames})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
     
 def wishlist(request):
     if request.user.is_authenticated:
         wishlist_items = WishlistItem.objects.filter(user=request.user)
         return render(request, 'flowerbloom/wishlist.html', {'wishlist_items': wishlist_items})
     else:
-        return redirect('/signin/')
+        return redirect('/login/')
 
 
 def add_to_wishlist(request, product_id):
@@ -203,7 +206,7 @@ def add_to_wishlist(request, product_id):
         WishlistItem.objects.get_or_create(user=request.user, product=product)
         return redirect('/wishlist/')
     else:
-        return redirect('/signin/') 
+        return redirect('/login/') 
 
 def remove_from_wishlist(request, id):
     if request.user.is_authenticated:
@@ -211,16 +214,7 @@ def remove_from_wishlist(request, id):
         wishlist_item.delete()
         return redirect('/wishlist/')
     else:
-        return redirect('/signin/')
-
-
-# def remove_cart(request,id):
-#     if request.user.is_authenticated:
-#         cart_item = Cart.objects.get(id=id,user=request.user)
-#         cart_item.delete()
-#         return redirect('/allcart/')
-#     else:
-#         return redirect('/login/')  
+        return redirect('/login/')
 
 def initiate_payment(request):
     if request.method == "POST":
@@ -269,3 +263,4 @@ def payment_failed(request):
 
 def payment_policies(request):
     return render(request, 'flowerbloom/payment_policies.html')
+

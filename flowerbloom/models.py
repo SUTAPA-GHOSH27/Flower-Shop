@@ -60,3 +60,4 @@ class Order(models.Model):
     payment_status=models.CharField(max_length=255)
     payment_id=models.CharField(max_length=255)
     address=models.TextField()
+
