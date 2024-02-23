@@ -17,7 +17,7 @@ from django.contrib.auth import login
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse
 from django.contrib import messages
-from .forms import MyRegFrm,LoginFrm
+from .forms import MyRegFrm,LoginFrm,ProductSearchForm
 from .models import Product, Cart
 from .models import WishlistItem,Order
 import razorpay
@@ -27,6 +27,15 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 
+def product_search(request):
+    form = ProductSearchForm(request.GET)
+    products = []
+
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        products = Product.objects.filter(name__icontains=query)
+
+    return render(request, 'search_results.html', {'form': form, 'products': products})
 
 def signup(request):
     if request.POST:
@@ -263,4 +272,7 @@ def payment_failed(request):
 
 def payment_policies(request):
     return render(request, 'flowerbloom/payment_policies.html')
+
+
+
 

@@ -34,6 +34,7 @@ urlpatterns = [
     path('initiate-payment/', views.initiate_payment,name='initiate_payment'),
     path('payment-failed/', views.payment_failed,name='payment-failed'),
     path('payment-policies/', views.payment_policies,name='payment-policies'),
+    path('product-search/', views.product_search, name='product_search'),
 ]
 
 

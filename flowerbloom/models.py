@@ -61,3 +61,5 @@ class Order(models.Model):
     payment_id=models.CharField(max_length=255)
     address=models.TextField()
 
+
+

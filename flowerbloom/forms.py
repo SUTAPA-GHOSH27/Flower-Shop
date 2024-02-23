@@ -13,3 +13,6 @@ class LoginFrm(AuthenticationForm):
     class Meta:
         model = MyUser
         fields = ("email")
+
+class ProductSearchForm(forms.Form):
+    query = forms.CharField(label='Search', max_length=100)
