@@ -26,6 +26,7 @@ from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
+import os
 
 def product_search(request):
     form = ProductSearchForm(request.GET)
@@ -191,7 +192,7 @@ def product(request, p_id):
     }
     return render(request, 'flowerbloom/product.html', context)
 
-import os
+
 
 def all_products(request):
     if request.user.is_authenticated:
