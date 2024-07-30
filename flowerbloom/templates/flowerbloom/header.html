@@ -41,15 +41,17 @@
                     </div>
                     <!-- col.// -->
                     <div class="col-xl-6 col-lg-5 col-md-6">
-                        <form action="{% url 'product_search' %}" method="GET" class="fs__form search--header">
+                    
+                        <form class="fs__form search--header" method="post" action="{% url 'search' %}" name="searched">
+                            {% csrf_token %}
+                            
                             <div class="input-group w-100">
                                 <i class="fa fa-search"></i>
-                                <input type="text" class="form-control" placeholder="Why are you searching? When we have some exciting categories..." name="query">
-                                <div class="input-group-append">
-                                    <button class="custom-btn btn " type="submit">Search</button>
-                                </div>
+                                <input type="search" name="searched" class="form-control" placeholder="     Why are you searching? When we have some exciting categories...">
+                                <!-- <button class=" custom-btn btn mt-1 ml-1" type="submit">Search</button> -->
                             </div>
                         </form>
+                        <!-- search--wrap.// -->
                     </div>
                     
                         <!-- search--wrap.// -->

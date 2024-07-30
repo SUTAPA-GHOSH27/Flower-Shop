@@ -275,5 +275,15 @@ def payment_policies(request):
     return render(request, 'flowerbloom/payment_policies.html')
 
 
-
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        prod = Product.objects.filter(name__icontains=searched)
+        products = Product.objects.all().order_by('?')[:12]
+        if prod :
+            return render(request,'flowerbloom/search.html', {'searched' :searched, 'prod':prod, 'products': products })
+        else:
+            return render(request,'flowerbloom/search.html', {'message': 'Product not present', 'searched': searched, 'products': products})
+    else:
+        return render(request,'flowerbloom/search.html', {})
 
